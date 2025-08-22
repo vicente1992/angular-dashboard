@@ -1,0 +1,34 @@
+<div class="space-y-4 sm:space-y-6">
+    <!-- Banking Account Section -->
+    <div>
+        <div class="mb-3 sm:mb-4">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-900">Banking Account</h2>
+            <p class="text-sm sm:text-base text-gray-600">All general information appears here.</p>
+        </div>
+
+        <!-- Pockets Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            @for (pocket of pockets(); track pocket.id) {
+            <app-pocket-card [pocket]="pocket" (onViewTransactions)="onViewTransactions($event)" />
+            }
+        </div>
+    </div>
+
+    <!-- Charts and Quick Transfer Section -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
+        <!-- Charts Section -->
+        <div class="xl:col-span-2 space-y-4 sm:space-y-6">
+            <app-chart-card title="Total Spent" [chartData]="spendingData()" />
+            <app-chart-card title="Total Income" [chartData]="incomeData()" />
+        </div>
+
+        <!-- Quick Transfer Section -->
+        <div class="xl:col-span-1">
+            <app-quick-transfer-card [contacts]="recentContacts()" (onSend)="onSendMoney()"
+                (onRequest)="onRequestMoney()" (onContactSelect)="onContactSelect($event)" />
+        </div>
+    </div>
+
+    <!-- Latest Transactions -->
+    <app-transactions-table [transactions]="transactions()" (onTransactionToggle)="onTransactionToggle($event)" />
+</div>

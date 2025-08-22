@@ -1,0 +1,31 @@
+<div>
+  <button
+    z-button
+    zVariant="outline"
+    z-dropdown
+    [zDropdownMenu]="menu"
+    zType="outline"
+  >
+    Open
+  </button>
+
+  <z-dropdown-menu-content #menu="zDropdownMenuContent" class="w-56">
+    <z-dropdown-menu-label>My Account</z-dropdown-menu-label>
+
+    @for (item of menuItems(); track $index) {
+      @if (item.separatorBefore) {
+        <z-divider zSpacing="sm" class="-mx-1"></z-divider>
+      }
+
+      <z-dropdown-menu-item
+        (click)="handleAction(item.action)"
+        [disabled]="item.disabled || false"
+      >
+        {{ item.label }}
+        @if (item.shortcut) {
+          <z-dropdown-menu-shortcut>{{ item.shortcut }}</z-dropdown-menu-shortcut>
+        }
+      </z-dropdown-menu-item>
+    }
+  </z-dropdown-menu-content>
+</div>
